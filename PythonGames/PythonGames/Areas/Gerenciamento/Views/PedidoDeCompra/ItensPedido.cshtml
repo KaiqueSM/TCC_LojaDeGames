@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.ItensPedido>
+<link href="~/Content/EstiloProdutos.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Lista de Itens";
+}
+
+<h2>Lista de Itens</h2>
+<br />
+<p>
+    @Html.ActionLink("Novo Item", "CadastrarItem", null, new { @class = "btn-orange" })
+</p>
+<br />
+@if (Model.Count() < 1)
+{
+    <h4> Ainda não há itens neste pedido </h4>
+}
+<ul class="prod-group">
+
+    @foreach (var item in Model)
+    {
+        <li>
+            <div class="card-prod">
+                <div class="img-prod" style="background-image: url('@Html.DisplayFor(modelItem => item.link_img)');">
+                </div>
+                <h5 title="@Html.DisplayFor(modelItem => item.nm_prod)">
+                    @Html.DisplayFor(modelItem => item.nm_prod)
+                </h5>
+                <p>
+                    @Html.DisplayFor(modelItem => item.qt_prod) Unidade(s)
+                </p>
+                <div class="card-body" style="text-align: center;">
+                    @Html.ActionLink("Alterar", "AlterarItem", new { cd_pedido = item.cd_pedido, cd_produto = item.cd_produto }, new { @class = "btn-alt" })
+                    @Html.ActionLink("Deletar", "DeletarItem", new { cd_pedido = item.cd_pedido, cd_produto = item.cd_produto }, new
+                    {
+                        @class = "btn-del",
+                        onclick = "return confirm('Deseja realmente excluir este item? ');"
+                    })
+                </div>
+            </div>
+
+
+        </li>
+    }
+</ul>
+
+<br />
+<div class="link-voltar-form">
+    <i class="fas fa-arrow-circle-left">
+        @Html.ActionLink("Voltar", "Index")
+    </i>
+</div>

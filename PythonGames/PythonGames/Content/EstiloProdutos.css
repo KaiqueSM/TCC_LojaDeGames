@@ -1,0 +1,146 @@
+﻿
+.prod-group {
+    margin: auto;
+    display: inline-block;
+    list-style: none;
+    width: 100%;
+}
+
+    .prod-group a{
+        color: black;
+    }
+
+    .prod-group a:hover {
+        text-decoration: none;
+    }
+
+    .prod-group li {
+        display: inline-block;
+        width: 18%;
+        margin: 1% 0.5%;
+    }
+
+.card-prod {
+    background-color: white;
+    width: 100%;
+    text-align: center;
+    border-radius: 20px;
+    border: solid 2px rgb(255, 127, 38);
+    padding-bottom: 5%;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+    .card-prod p {
+        margin: 0;
+
+    }
+
+    .card-prod h5 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-decoration: none;
+        text-overflow: clip;
+        text-overflow: ellipsis;
+        text-overflow: "…";
+        margin-inline: 5%;
+        margin-top: 5%;
+        padding-bottom: 5%;
+    }
+
+.img-prod {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 100%;
+    height: 11vw;
+    border-radius: 20px;
+    border-bottom: solid 2px rgb(255, 127, 38);
+}
+
+.add-link {
+    background-color: white;
+    color: rgb(255, 127, 38);
+    text-align: center;
+    text-decoration: none;
+    font-size: 2.5vw;
+    z-index: 2;
+    border: solid 2px rgb(255, 127, 38);
+    border-radius: 20px;
+    /*padding: 0% 1%;*/
+    margin-left: 35%;
+    margin-top: -1.7vw;
+    width: 30%;
+    float: inline-start;
+    transition: 0.7s;
+    cursor: pointer;
+}
+
+    .add-link:hover {
+        color: white;
+        background-color: rgb(255, 127, 38);
+    }
+
+.add-link a{
+    color: rgb(255, 127, 38);
+}
+    .add-link a:hover {
+        color: white;
+        text-decoration: none;
+    }
+
+
+
+/* RESPONSIVIDADE */
+@media(max-width: 990px) {
+    .prod-group li {
+        width: 29.5%;
+    }
+    .add-link {
+        font-size: 3vw;
+        z-index: 2;
+        margin-left: 34%;
+        margin-top: -2.8vw;
+        width: 32%;
+        padding: 2% 0%;
+    }
+    .img-prod {
+        height: 15vw;
+    }
+}
+
+@media(max-width: 765px) {
+    .prod-group li {
+        width: 45%;
+    }
+    .add-link {
+        font-size: 4vw;
+        z-index: 2;
+        margin-top: -4vw;
+        padding: 2% 0%;
+    }
+
+    .img-prod {
+        height: 25vw;
+    }
+}
+
+@media(max-width: 580px) {
+    .prod-group li {
+        width: 45%;
+    }
+
+    .add-link {
+        font-size: 6vw;
+        z-index: 2;
+        margin-top: -4vw;
+        padding: 2% 0%;
+    }
+
+    .img-prod {
+        height: 25vw;
+    }
+
+}
+
+

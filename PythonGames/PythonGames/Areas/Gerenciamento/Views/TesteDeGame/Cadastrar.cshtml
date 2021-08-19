@@ -1,0 +1,114 @@
+﻿@model PythonGames.Classes.Models.TesteDeGame
+
+@{
+    ViewBag.Title = "Teste De Game";
+}
+
+<h2 class="titulo-form">Cadastrar Teste De Game</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div style="display: none;">
+        <div class="">
+            @Html.LabelFor(model => model.cd_produto, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.EditorFor(model => model.cd_produto, new { htmlAttributes = new { @class = "" } })
+                @Html.ValidationMessageFor(model => model.cd_produto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="">
+            @Html.LabelFor(model => model.cd_cliente, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.EditorFor(model => model.cd_cliente, new { htmlAttributes = new { @class = "" } })
+                @Html.ValidationMessageFor(model => model.cd_cliente, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="div-form-col1">
+ 
+        <div class="">
+            @Html.LabelFor(model => model.nm_cli, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.EditorFor(model => model.nm_cli, new { htmlAttributes = new { @class = "", @readonly = "reafonly" } })<br />
+                @Html.ActionLink("Escolher Cliente", "EscolherCliente")<br />
+                @Html.ValidationMessageFor(model => model.nm_cli, "", new { @class = "text-danger" })<br />
+            </div>
+        </div>
+
+        <div class="">
+            @Html.LabelFor(model => model.dt_teste, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.EditorFor(model => model.dt_teste, new { htmlAttributes = new { @class = "", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.dt_teste, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="div-form-col2">
+        <div class="">
+            @Html.LabelFor(model => model.nm_prod, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.EditorFor(model => model.nm_prod, new { htmlAttributes = new { @class = "", @readonly = "reafonly" } }) <br />
+                @Html.ActionLink("Escolher Produto", "EscolherProduto")<br />
+                @Html.ValidationMessageFor(model => model.nm_prod, "", new { @class = "text-danger" })<br />
+            </div>
+        </div>
+
+
+
+        <div class="">
+            @Html.LabelFor(model => model.hr_teste, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.DropDownListFor(model => model.hr_teste,
+                  new List<SelectListItem> {
+                  new SelectListItem{ Value = "08:00" , Text = "08:00"  },
+                  new SelectListItem{ Value = "08:30" , Text = "08:30"  },
+                  new SelectListItem{ Value = "09:00" , Text = "09:00"  },
+                  new SelectListItem{ Value = "09:30" , Text = "09:30"  },
+                  new SelectListItem{ Value = "10:00" , Text = "10:00"  },
+                  new SelectListItem{ Value = "10:30" , Text = "10:30"  },
+                  new SelectListItem{ Value = "11:00" , Text = "11:00"  },
+                  new SelectListItem{ Value = "11:30" , Text = "11:30"  },
+                  new SelectListItem{ Value = "12:00" , Text = "12:00"  },
+                  new SelectListItem{ Value = "12:30" , Text = "12:30"  },
+                  new SelectListItem{ Value = "13:00" , Text = "13:00"  },
+                  new SelectListItem{ Value = "13:30" , Text = "13:30"  },
+                  new SelectListItem{ Value = "14:00" , Text = "14:00"  },
+                  new SelectListItem{ Value = "14:30" , Text = "14:30"  },
+                  new SelectListItem{ Value = "15:00" , Text = "15:00"  },
+                  new SelectListItem{ Value = "15:30" , Text = "15:30"  },
+                  new SelectListItem{ Value = "16:00" , Text = "16:00"  },
+                  new SelectListItem{ Value = "16:30" , Text = "16:30"  },
+                  new SelectListItem{ Value = "17:00" , Text = "17:00"  },
+                  new SelectListItem{ Value = "17:30" , Text = "17:30"  }
+                }, new { @id = "nm_categoria", onclick = "MostraDiv()" })
+                @Html.ValidationMessageFor(model => model.hr_teste, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="">
+        <div class="btn-form">
+            <p class="text-danger">
+                @ViewBag.ErroMsg
+            </p>
+            <input type="submit" value="Cadastrar" class="btn btn-orange" />
+        </div>
+    </div>
+</div>
+    }
+    <br />
+    <div class="link-voltar-form">
+        <i class="fas fa-arrow-circle-left">
+            @Html.ActionLink("Voltar", "Index")
+        </i>
+    </div>

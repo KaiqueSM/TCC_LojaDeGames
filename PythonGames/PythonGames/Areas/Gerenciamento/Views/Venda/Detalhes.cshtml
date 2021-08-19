@@ -1,0 +1,82 @@
+﻿@model PythonGames.Classes.Models.Carrinho
+
+@{
+    ViewBag.Title = "Detalhes da Venda";
+}
+
+<h2 class="titulo-form">Detalhes da Venda</h2>
+
+<div>
+    <hr />
+    <div class="div-form-col1">
+        <b>
+            @Html.DisplayNameFor(model => model.cd_carrinho)
+        </b>
+
+        <p>
+            @Html.DisplayFor(model => model.cd_carrinho)
+        </p>
+
+        <b>
+            @Html.DisplayNameFor(model => model.dt_venda)
+        </b>
+
+        <p>
+            @Html.DisplayFor(model => model.dt_venda)
+        </p>
+
+        <b>
+            @Html.DisplayNameFor(model => model.nm_forma)
+        </b>
+
+        <p>
+            @Html.DisplayFor(model => model.nm_forma)
+        </p>
+    </div>
+    <div class="div-form-col1">
+        <b>
+            @Html.DisplayNameFor(model => model.cpf_cli)
+        </b>
+
+        <p style="user-select: none;">
+            @Html.DisplayFor(model => model.cpf_cli)
+        </p>
+
+        <b>
+            @Html.DisplayNameFor(model => model.nm_cli)
+        </b>
+
+        <p>
+            @Html.DisplayFor(model => model.nm_cli)
+        </p>
+
+        <b>
+            @Html.DisplayNameFor(model => model.vl_total)
+        </b>
+
+        <p>
+            @Html.DisplayFor(model => model.vl_total)
+        </p>
+    </div>
+
+</div>
+<div class="btn-form">
+    @if (Model.cd_forma != 3)
+    {
+        <b>
+            Digitos finais do cartão:
+        </b>
+        <p>
+            @ViewBag.NoCartao
+        </p>
+        <br />
+    }
+
+    @Html.ActionLink("Ver Itens", "ItensVenda", new { cd = Model.cd_carrinho }, new { @class = "btn-orange" }) 
+</div>
+
+<div class="link-voltar-form">
+    <i class="fas fa-arrow-circle-left" style="cursor: pointer;" onclick="history.back()">
+        Voltar
+    </i>
+</div>

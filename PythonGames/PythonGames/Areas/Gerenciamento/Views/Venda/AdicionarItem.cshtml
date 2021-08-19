@@ -1,0 +1,106 @@
+﻿@model PythonGames.Classes.Models.ItensCarrinho
+
+@{
+    ViewBag.Title = "AdicionarItem";
+}
+
+<script>
+    var valor = @ViewBag.VlProd;
+    var estoque = @ViewBag.QtEstoque;
+
+    function subQtd() {
+        document.getElementById('input-qtd').value--;
+        var i = document.getElementById('input-qtd').value;
+
+        document.getElementById('input-valor').value = valor * i;
+
+        if (i == 1)
+            document.getElementById('btn-sub').disabled = true;
+
+
+
+        document.getElementById('btn-sum').disabled = false;
+
+    }
+
+    function somaQtd() {
+        document.getElementById('input-qtd').value++;
+        document.getElementById('btn-sub').disabled = false;
+        var i = document.getElementById('input-qtd').value;
+
+        document.getElementById('input-valor').value = valor * i;
+
+        if (i == estoque)
+            document.getElementById('btn-sum').disabled = true;
+
+    }
+</script>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div style="display: none;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.cd_produto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.cd_produto, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.cd_produto, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="form-carrinho">
+
+            <div class="item-form-carrinho form-carrinho-img" style="background-image: url('@ViewBag.LinkImg');">
+            </div>
+            <div class="item-form-carrinho form-carrinho-inputs">
+                <h3>@ViewBag.NmProd</h3>
+                <hr style="border: 1px solid rgb(255, 127, 38);">
+                <h6>
+                    @ViewBag.ProdDesc
+                </h6>
+                <p>
+                    Categoria: @ViewBag.NmCat
+                </p>
+
+
+                @if (ViewBag.QtEstoque > 0)
+                {
+                    <p>
+                        Valor total: @Html.EditorFor(model => model.vl_item, new { htmlAttributes = new { @style = "width: 50px;", @value = @ViewBag.VlProd, @id = "input-valor", @readonly = "readonly" } }) R$
+                    </p>
+                    <br>
+                    <p>
+                        Quantidade:
+                        <input type="button" value="-" id="btn-sub" onclick="subQtd()" disabled />
+                        @Html.EditorFor(model => model.qt_item, new { htmlAttributes = new { @class = "", @id = "input-qtd", @min = "1", @max = @ViewBag.QtEstoque, @readonly = "readonly", @value = "1" } })
+                        <input type="button" value="+" id="btn-sum" onclick="somaQtd()" />
+                    </p>
+                    <input type="submit" value="Adcionar" class="btn-add" />
+
+                }
+                else
+                {
+                    <p class="text-danger">Produto fora de estoque</p>
+                }
+
+
+                <br><br>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+}

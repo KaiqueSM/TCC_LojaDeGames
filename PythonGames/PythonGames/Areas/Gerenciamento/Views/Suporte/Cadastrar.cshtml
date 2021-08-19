@@ -1,0 +1,73 @@
+﻿@model PythonGames.Classes.Models.Suporte
+
+@{
+    ViewBag.Title = "Cadastrar Suporte";
+}
+
+<h2 class="titulo-form">Cadastrar Suporte</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Suporte</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div style="display:none;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.cd_produto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.cd_produto, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.cd_produto, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.cd_carrinho, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.cd_carrinho, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.cd_carrinho, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="div-form-col1">
+            <div class="">
+                @Html.LabelFor(model => model.sup_descricao, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.TextAreaFor(model => model.sup_descricao, new { htmlAttributes = new { @class = "" } }) <br />
+                    @Html.ValidationMessageFor(model => model.sup_descricao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-form-col1">
+            <div class="">
+                @Html.LabelFor(model => model.dt_sup, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.dt_sup, new { htmlAttributes = new { @type = "date" } }) <br />
+                    @Html.ValidationMessageFor(model => model.dt_sup, "", new { @class = "text-danger" })
+                    <br />
+                    <br />
+                </div>
+            </div>
+        </div>
+
+
+        <div class="">
+            <div class="btn-form">
+                <p class="text-danger">
+                    @ViewBag.ErroMsg
+                </p>
+                <input type="submit" value="Cadastrar" class="btn btn-orange" />
+            </div>
+        </div>
+    </div>
+}
+
+<br />
+<div class="link-voltar-form">
+    <i class="fas fa-arrow-circle-left">
+        @Html.ActionLink("Voltar", "Index")
+    </i>
+</div>

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.ItensCarrinho>
+<link href="~/Content/EstiloProdutos.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Escolher Produto";
+}
+
+<h2>Escolha o Produto</h2>
+
+
+<ul class="prod-group">
+
+    @foreach (var item in Model)
+    {
+        <li>
+
+            <div class="card-prod">
+                <div class="img-prod" style="background-image: url('@Html.DisplayFor(modelItem => item.link_img)');">
+                </div>
+                <h5 title="@Html.DisplayFor(modelItem => item.nm_prod)">
+                    @Html.DisplayFor(modelItem => item.nm_prod)
+                </h5>
+                <p>@Html.DisplayFor(modelItem => item.nm_categoria)</p>
+                <p>R$ @Html.DisplayFor(modelItem => item.vl_prod)</p>
+
+                <br />
+
+            </div>
+            <div class="add-link">
+                @Html.ActionLink("+", "Cadastrar", new { cd_produto = item.cd_produto, cd_carrinho = item.cd_carrinho })
+            </div>
+
+
+
+        </li>
+    }
+
+</ul>

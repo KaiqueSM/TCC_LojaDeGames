@@ -1,0 +1,44 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.Produto>
+<link href="~/Content/EstiloProdutos.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Buscar";
+}
+<h2>Resultados para"@ViewBag.Busca"</h2>
+@if (Model.Count() > 0)
+{
+    <ul class="prod-group">
+
+        @foreach (var item in Model)
+        {
+            <li>
+
+                <div class="card-prod">
+                    <div class="img-prod" style="background-image: url('@Html.DisplayFor(modelItem => item.link_img)');">
+                    </div>
+                    <h5 title="@Html.DisplayFor(modelItem => item.nm_prod)">
+                        @Html.DisplayFor(modelItem => item.nm_prod)
+                    </h5>
+                    <p>@Html.DisplayFor(modelItem => item.nm_categoria)</p>
+                    <p>R$ @Html.DisplayFor(modelItem => item.vl_prod)</p>
+                    <p>Em estoque: @Html.DisplayFor(modelItem => item.qt_estoque)</p>
+
+                    <br />
+
+                </div>
+                <div class="add-link">
+                    @Html.ActionLink("+", "AdicionarItem", "Carrinho", new { cd = item.cd_produto }, null)
+                </div>
+
+
+
+            </li>
+        }
+
+    </ul>
+}
+else
+{
+    <p>
+        Não foi encontrado nenhum produto :(  @Html.ActionLink("Volte para a página inicial","Index")
+    </p>
+}

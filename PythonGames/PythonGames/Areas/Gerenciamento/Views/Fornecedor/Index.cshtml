@@ -1,0 +1,80 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.Fornecedor>
+
+@{
+    ViewBag.Title = "Lista de Fornecedores";
+}
+
+<h2>Fornecedores Ativos</h2>
+
+<br />
+<p>
+</p>
+<div class="navbar">
+    @Html.ActionLink("Novo Fornecedor", "Cadastrar", null, new { @class = "btn-orange" })
+    @Html.ActionLink("Mostrar Inactivos", "ListaInativos", null, new { @class = "btn btn-outline-secondary" })
+
+    <form class="form-inline" method="post">
+        <input class="form-control mr-sm-2" id="no_cnpj" name="no_cnpj" type="search" placeholder="Buscar por CNPJ">
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+</div>
+<br />
+
+<table class="table table-borderless text-center">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nm_fornecedor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.no_cnpj)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.flag)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nm_fornecedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.no_cnpj)
+            </td>
+            <td>
+                @if (item.flag != 1)
+                {
+                    <b>Ativo</b>
+                }
+                else
+                {
+                    <p>Inativo</p>
+                }
+            </td>
+            <td>
+                @if ((int)Session["AcFuncionarioLogado"] == 1)
+                {
+                    @Html.ActionLink("Alterar", "Alterar", new { cd = item.cd_fornecedor }, new { @class = "btn-alt" })
+                    @Html.ActionLink("Desativar", "Desativar", new { cd = item.cd_fornecedor }, new
+                    {
+                        @class = "btn-del",
+                        onclick = "return confirm('Deseja realmente desativar " +
+                        @Html.DisplayFor(modelItem => item.nm_fornecedor) + " ? ');"
+                    })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#no_cnpj").inputmask("mask", { "mask": "99.999.999/9999-99" }, { reverse: true });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

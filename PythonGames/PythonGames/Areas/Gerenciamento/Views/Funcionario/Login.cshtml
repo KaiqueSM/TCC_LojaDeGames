@@ -1,0 +1,77 @@
+﻿@model PythonGames.Classes.Models.Funcionario
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="div-link-voltar">
+    <i class="fas fa-arrow-circle-left">
+        @Html.ActionLink("Voltar", "Login", "Home", new { area = "" }, new { @class = "" })
+
+    </i>
+</div>
+
+<div class="div-login">
+    <div class="div-login-cad div-login-item">
+        <h2>Bem Vindo!</h2>
+        <img src="~/Imagens/pg_logo_asi_sl_sc.png" />
+        <h5>
+            Caso não lembre os dados do seu acesso, consulte seu gerente
+        </h5>
+
+
+        <a href="/Home/Index">
+            <p class="btn btn-outline-light">Voltar para a página inicial</p>
+        </a>
+    </div>
+
+    <div class="div-login-form div-login-item">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div>
+                <h4>Login</h4>
+                <br />
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div>
+                    <div>
+                        <label for="nm_usu">
+                            <i class="fas fa-user-alt">&nbsp; Usuário</i>
+                        </label>
+                        @Html.EditorFor(model => model.nm_usu, new { htmlAttributes = new { @type = "text", @id = "nm_usu" } })
+                        @Html.ValidationMessageFor(model => model.nm_usu, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <label for="senha_usu">
+                            <i class="fas fa-lock">&nbsp; @Html.LabelFor(model => model.senha_usu)</i>
+                        </label>
+                        @Html.EditorFor(model => model.senha_usu, new { htmlAttributes = new { @type = "password", @id = "senha_usu" } })
+                        @Html.ValidationMessageFor(model => model.senha_usu, "", new { @class = "text-danger" })
+                        <p class="text-danger">
+                            @ViewBag.ErroMsg
+                        </p>
+                    </div>
+                </div>
+                <hr />
+                <br />
+
+                <div>
+                    <div>
+                        <input type="submit" value="Entrar" class="btn btn-outline-dark" id="btn-entrar" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

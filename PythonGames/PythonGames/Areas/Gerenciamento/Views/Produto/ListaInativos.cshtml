@@ -1,0 +1,70 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.Produto>
+<link href="~/Content/EstiloProdutos.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Lista de Produtos";
+}
+
+<h2>Produtos</h2>
+<br />
+
+<div class="navbar">
+    @Html.ActionLink("Novo Produto", "Cadastrar", null, new { @class = "btn-orange" })
+    @Html.ActionLink("Mostrar Apenas Ativos", "Index", null, new { @class = "btn btn-outline-secondary" })
+
+    <form class="form-inline" method="post">
+        <input class="form-control mr-sm-2" id="busca" name="busca" type="search" placeholder="Buscar por Nome">
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+</div>
+
+<br />
+<ul class="prod-group">
+    @foreach (var item in Model)
+    {
+        <li>
+
+            <div class="card-prod">
+                <div class="img-prod" style="background-image: url('@Html.DisplayFor(modelItem => item.link_img)');">
+                </div>
+                <h5 title="@Html.DisplayFor(modelItem => item.nm_prod)">
+                    @Html.DisplayFor(modelItem => item.nm_prod)
+                </h5>
+                <p>@Html.DisplayFor(modelItem => item.nm_categoria)</p>
+                <p>R$ @Html.DisplayFor(modelItem => item.vl_prod)</p>
+                <p>Em estoque: @Html.DisplayFor(modelItem => item.qt_estoque)</p>
+
+                @Html.ActionLink("Ver Detalhes", "Detalhes", new { cd = item.cd_produto, nm_categoria = item.nm_categoria })
+                <br />
+                <br />
+
+                @if ((int)Session["AcFuncionarioLogado"] == 1)
+                {
+                    if (item.flag == 0)
+                    {
+                        @Html.ActionLink("Alterar", "Alterar", new { cd = item.cd_produto, nm_categoria = item.nm_categoria }, new { @class = "btn-alt" })
+                        @Html.ActionLink("Desativar", "Desativar", new { cd = item.cd_produto }, new
+                        {
+                            @class = "btn-del",
+                            onclick = "return confirm('Deseja realmente desativar " +
+                            @Html.DisplayFor(modelItem => item.nm_prod) + " ? ');"
+                        })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Reativar", "Reativar", new { cd = item.cd_produto }, new
+                        {
+                            @class = "btn-del",
+                            onclick = "return confirm('Deseja realmente reativar " +
+                            @Html.DisplayFor(modelItem => item.nm_prod) + " ? ');"
+                        })
+                    }
+
+                }
+            </div>
+
+
+
+
+        </li>
+    }
+</ul>

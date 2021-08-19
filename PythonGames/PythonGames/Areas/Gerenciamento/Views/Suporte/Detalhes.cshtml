@@ -1,0 +1,100 @@
+﻿@model PythonGames.Classes.Models.Suporte
+
+@{
+    ViewBag.Title = "Detalhes de Suporte";
+}
+
+<h2 class="titulo-form">Detalhes de Suporte</h2>
+<br />
+<div>
+    <div class="form-carrinho">
+
+        <div class="item-form-carrinho form-carrinho-img" style="background-image: url('@Html.DisplayFor(model => model.link_img)');">
+        </div>
+        <div class="item-form-carrinho form-carrinho-inputs">
+            <h3>@Html.DisplayFor(model => model.nm_prod)</h3>
+            <hr style="border: 1px solid rgb(255, 127, 38);">
+
+            <p>
+                <span style="font-weight: bold;">
+                    @Html.DisplayNameFor(model => model.cd_carrinho)
+                </span>
+                @Html.DisplayFor(model => model.cd_carrinho)
+            </p>
+
+            <p>
+                <span style="font-weight: bold;">
+                    @Html.DisplayNameFor(model => model.dt_sup)
+                </span>
+                @Html.DisplayFor(model => model.dt_sup)
+            </p>
+
+            <p>
+                <span style="font-weight: bold;">
+                    @Html.DisplayNameFor(model => model.sup_descricao)
+                </span>
+                @Html.DisplayFor(model => model.sup_descricao)
+            </p>
+
+            <p>
+                <span style="font-weight: bold;">
+                    @Html.DisplayNameFor(model => model.sup_status)
+                </span>
+                @if (@ViewBag.Status == 0)
+                {
+                    <span class="text-danger fas fa-times-circle" title="Alterar Status de Suporte">  
+                        @Html.ActionLink("Não Atendido", "AlterarStatus", new { cd = @ViewBag.Cd }, new
+                        {
+                            @class = "text-danger",
+                            onclick = "return confirm('Deseja realmente alterar o status deste suporte?? ');"
+                        })
+                    </span>
+                }
+                else
+                {
+                    <span style="font-weight: normal;" class="fas fa-check-circle text-success">Atendido</span>
+                }
+            </p>
+
+            <p>
+                <span style="font-weight: bold;">
+                    @Html.DisplayNameFor(model => model.cpf_cli)
+                </span>
+                @Html.DisplayFor(model => model.cpf_cli)
+            </p>
+
+            <p>
+                <span style="font-weight: bold;">
+                    @Html.DisplayNameFor(model => model.nm_cli)
+                </span>
+                @Html.DisplayFor(model => model.nm_cli)
+            </p>
+
+            <p>
+                <span style="font-weight: bold;">
+                    @Html.DisplayNameFor(model => model.nm_email)
+                </span>
+                @Html.DisplayFor(model => model.nm_email)
+            </p>
+
+            @if ((int)Session["AcFuncionarioLogado"] == 1)
+            {
+                <br />
+                @Html.ActionLink("Alterar", "Alterar", new { cd = @ViewBag.Cd }, new { @class = "btn-alt" })
+                @Html.ActionLink("Deletar", "Deletar", new { cd = @ViewBag.Cd }, new
+                {
+                    @class = "btn-del",
+                    onclick = "return confirm('Deseja realmente deletar este suporte?? ');"
+                })
+            }
+
+
+        </div>
+    </div>
+</div>
+<br />
+<div class="link-voltar-form">
+    <i class="fas fa-arrow-circle-left">
+        @Html.ActionLink("Voltar", "Index")
+    </i>
+</div>

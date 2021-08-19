@@ -1,0 +1,36 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.ItensAbs>
+<link href="~/Content/EstiloProdutos.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Lista de Itens";
+}
+
+<h2>Lista de Itens</h2>
+<br />
+
+<ul class="prod-group">
+
+    @foreach (var item in Model)
+    {
+        <li>
+            <div class="card-prod">
+                <div class="img-prod" style="background-image: url('@Html.DisplayFor(modelItem => item.link_img)');">
+                </div>
+                <h5 title="@Html.DisplayFor(modelItem => item.nm_prod)">
+                    @Html.DisplayFor(modelItem => item.nm_prod)
+                </h5>
+                <p>
+                    @Html.DisplayFor(modelItem => item.qt_prod) Unidade(s)
+                </p>
+            </div>
+
+
+        </li>
+    }
+</ul>
+<br />
+<div class="link-voltar-form">
+    <i class="fas fa-arrow-circle-left">
+        @Html.ActionLink("Voltar", "ListaConcluídos")
+    </i>
+</div>

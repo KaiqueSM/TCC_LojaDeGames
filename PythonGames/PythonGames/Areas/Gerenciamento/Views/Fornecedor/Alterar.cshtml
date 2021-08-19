@@ -1,0 +1,73 @@
+﻿@model PythonGames.Classes.Models.Fornecedor
+
+@{
+    ViewBag.Title = "Alterar Fornecedor";
+}
+
+<h2 class="titulo-form">Alterar Fornecedor</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Fornecedor</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="" style="display: none;">
+                @Html.LabelFor(model => model.cd_fornecedor, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.cd_fornecedor, new { htmlAttributes = new { @class = "" } })
+                    @Html.ValidationMessageFor(model => model.cd_fornecedor, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        <div class="div-form-col2">
+
+            <div class="">
+                @Html.LabelFor(model => model.nm_fornecedor, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.nm_fornecedor, new { htmlAttributes = new { @class = "" } })<br />
+                    @Html.ValidationMessageFor(model => model.nm_fornecedor, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-form-col2">
+
+            <div class="">
+                @Html.LabelFor(model => model.no_cnpj, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.no_cnpj, new { htmlAttributes = new { @id = "no_cnpj" } })<br />
+                    @Html.ValidationMessageFor(model => model.no_cnpj, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="">
+            <div class="btn-form">
+                <p class="text-danger">
+                    @ViewBag.ErroMsg
+                </p>
+                <input type="submit" value="Salvar Alterações" class="btn btn-orange" />
+            </div>
+        </div>
+    </div>
+}
+<div class="link-voltar-form">
+    <i class="fas fa-arrow-circle-left">
+        @Html.ActionLink("Voltar", "Index")
+    </i>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#no_cnpj").inputmask("mask", { "mask": "99.999.999/9999-99" }, { reverse: true });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

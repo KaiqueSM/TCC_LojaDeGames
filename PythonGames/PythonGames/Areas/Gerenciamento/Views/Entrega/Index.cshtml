@@ -1,0 +1,61 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.Entrega>
+
+@{
+    ViewBag.Title = "Lista de Entregas";
+}
+
+<h2>Lista de Entregas</h2>
+<br />
+<table class="table table-borderless text-center">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.cd_carrinho)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dt_entrega)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vl_frete)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.no_cep)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nm_estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nm_cidade)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.cd_carrinho)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dt_entrega)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vl_frete) R$
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.no_cep)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nm_estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nm_cidade)
+            </td>
+            <td>
+                <a href="~/Gerenciamento/Venda/Detalhes?cd=@item.cd_carrinho">
+                    Ver Detalhes De Pedido
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>

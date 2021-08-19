@@ -1,0 +1,100 @@
+﻿@model PythonGames.Classes.Models.Suporte
+@{
+    ViewBag.Title = "Detalhes de Suporte";
+}
+
+<h2 class="titulo-form">Detalhes de Suporte</h2>
+<br />
+<div>
+    <div class="form-carrinho">
+
+        <div class="item-form-carrinho form-carrinho-img" style="background-image: url('@Html.DisplayFor(model => model.link_img)');">
+        </div>
+        <div class="item-form-carrinho form-carrinho-inputs">
+            <h3>@Html.DisplayFor(model => model.nm_prod)</h3>
+            <hr style="border: 1px solid rgb(255, 127, 38);">
+
+            <p>
+                <span style="font-weight: bold;">
+                    @Html.DisplayNameFor(model => model.cd_carrinho)
+                </span>
+                @Html.DisplayFor(model => model.cd_carrinho)
+            </p>
+
+            <p>
+                <span style="font-weight: bold;">
+                    @Html.DisplayNameFor(model => model.dt_sup)
+                </span>
+                @Html.DisplayFor(model => model.dt_sup)
+            </p>
+
+            <p>
+                <span style="font-weight: bold;">
+                    @Html.DisplayNameFor(model => model.sup_descricao)
+                </span>
+                @Html.DisplayFor(model => model.sup_descricao)
+            </p>
+
+            <p>
+                <span style="font-weight: bold;">
+                    @Html.DisplayNameFor(model => model.sup_status)
+                </span>
+                @if (@ViewBag.Status == 0)
+                {
+                    <span class="text-danger fas fa-times-circle">
+                        Não Atendido
+                    </span>
+                }
+                else
+                {
+                    <span class="fas fa-check-circle text-success" title="Cheque seu Email!!">
+                        Atendido
+                    </span>
+                }
+            </p>
+
+            <p>
+                <span style="font-weight: bold;">
+                    @Html.DisplayNameFor(model => model.cpf_cli)
+                </span>
+                @Html.DisplayFor(model => model.cpf_cli)
+            </p>
+
+            <p>
+                <span style="font-weight: bold;">
+                    @Html.DisplayNameFor(model => model.nm_cli)
+                </span>
+                @Html.DisplayFor(model => model.nm_cli)
+            </p>
+
+            <p>
+                <span style="font-weight: bold;">
+                    @Html.DisplayNameFor(model => model.nm_email)
+                </span>
+                @Html.DisplayFor(model => model.nm_email)
+            </p>
+
+            <br />
+            @Html.ActionLink("Cancelar", "DeletarSuporte", new { cd = @ViewBag.Cd }, new
+            {
+                @class = "btn-del",
+                onclick = "return confirm('Deseja realmente cancelar este suporte?? ');"
+            })
+
+        </div>
+    </div>
+</div>
+<br />
+<hr />
+<div class="link-voltar-form text-center">
+    <i class="fas fa-arrow-circle-left" onclick="history.back()" style="cursor: pointer;">
+        Voltar
+    </i>
+    @Html.ActionLink(" Meus Dados", "Index", null, new { @class = "fas fa-user" })
+    &nbsp;
+    @Html.ActionLink(" Minhas Compras", "Compras", null, new { @class = "fas fa-shopping-bag" })
+    &nbsp;
+    @Html.ActionLink(" Testes De Games", "ListaDeTestes", null, new { @class = "fas fa-gamepad" })
+    &nbsp;
+    @Html.ActionLink(" Suportes", "ListaSuportes", null, new { @class = "fas fa-wrench" })
+</div>

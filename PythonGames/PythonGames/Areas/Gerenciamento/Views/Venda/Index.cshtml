@@ -1,0 +1,68 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.Carrinho>
+
+@{
+    ViewBag.Title = "Lista de Vendas";
+}
+
+<h2>Lista de Vendas</h2>
+
+<br />
+
+<div class="navbar">
+    @Html.ActionLink("Nova Venda", "Cadastrar", null, new { @class = "btn-orange" })
+
+    <form class="form-inline" method="post">
+        <input class="form-control mr-sm-2" id="cpf_cli" name="cpf_cli" type="search" placeholder="Buscar por CPF">
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+</div>
+
+<br />
+<table class="table table-borderless text-center">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.cd_carrinho)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nm_cli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dt_venda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vl_total)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="user-select: none;">
+                @Html.DisplayFor(modelItem => item.cd_carrinho)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nm_cli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dt_venda)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vl_total) R$
+            </td>
+            <td>
+                @Html.ActionLink("Ver Detalhes", "Detalhes", new { cd = item.cd_carrinho })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#cpf_cli").inputmask("mask", { "mask": "999.999.999-99" }, { reverse: true });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

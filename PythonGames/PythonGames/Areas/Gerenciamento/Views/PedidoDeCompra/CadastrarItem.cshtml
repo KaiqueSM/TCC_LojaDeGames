@@ -1,0 +1,75 @@
+﻿@model PythonGames.Classes.Models.ItensPedido
+
+@{
+    ViewBag.Title = "Cadastrar Item";
+}
+
+<h2 class="titulo-form">Cadastrar Item</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>ItensPedido</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div style="display: none;">
+        <div class="">
+            @Html.LabelFor(model => model.cd_pedido, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.EditorFor(model => model.cd_pedido, new { htmlAttributes = new { @class = "" } })<br />
+                @Html.ValidationMessageFor(model => model.cd_pedido, "", new { @class = "text-danger" })<br />
+            </div>
+        </div>
+
+        <div class="">
+            @Html.LabelFor(model => model.cd_produto, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.EditorFor(model => model.cd_produto, new { htmlAttributes = new { @class = "" } })<br />
+                @Html.ValidationMessageFor(model => model.cd_produto, "", new { @class = "text-danger" })<br />
+            </div>
+        </div>
+    </div>
+
+        <div class="div-form-col1">
+            <div class="">
+                @Html.LabelFor(model => model.nm_prod, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.nm_prod, new { htmlAttributes = new { @class = "", @readonly = "@readonly" } })<br />
+                    @Html.ActionLink("Escolher Produto", "EscolherProduto")<br />
+                    @Html.ValidationMessageFor(model => model.nm_prod, "", new { @class = "text-danger" })<br />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-form-col2">
+            <div class="">
+                @Html.LabelFor(model => model.qt_prod, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.qt_prod, new { htmlAttributes = new { @class = "" } })<br />
+                    @Html.ValidationMessageFor(model => model.qt_prod, "", new { @class = "text-danger" })<br /><br />
+                </div>
+            </div>
+        </div>
+
+
+
+            <div class="">
+                <div class="btn-form">
+                    <p class="text-danger">
+                        @ViewBag.ErroMsg
+                    </p>
+                    <input type="submit" value="Cadastrar" class="btn btn-orange" />
+                </div>
+            </div>
+        </div>
+    }
+
+<br />
+<div class="link-voltar-form">
+    <i class="fas fa-arrow-circle-left">
+        @Html.ActionLink("Voltar", "ItensPedido", new { cd = (int)Session["PedCdPed"]})
+    </i>
+</div>

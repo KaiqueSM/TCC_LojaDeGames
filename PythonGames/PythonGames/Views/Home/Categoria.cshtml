@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.Produto>
+<link href="~/Content/EstiloProdutos.css" rel="stylesheet" />
+@{
+    ViewBag.Title = ViewBag.Categoria;
+}
+
+<div class="div-links-cat">
+    <a href="~/Home/Categoria?cat=Games" title="Games">
+        <img src="~/Imagens/icnsCats/icnGames.png" />
+    </a>
+    <a href="~/Home/Categoria?cat=Teclados" title="Teclados">
+        <img src="~/Imagens/icnsCats/icnTeclado.png" />
+    </a>
+    <a href="~/Home/Categoria?cat=Mouses%20e%20Controles" title="Mouses e Controles">
+        <img src="~/Imagens/icnsCats/icnMousesEControles.png" />
+    </a>
+    <a href="~/Home/Categoria?cat=Headsets" title="Headsets">
+        <img src="~/Imagens/icnsCats/icnHeadset.png" />
+    </a>
+    <a href="~/Home/Categoria?cat=Monitores" title="Monitores">
+        <img src="~/Imagens/icnsCats/icnMonitores.png" />
+    </a>
+    <a href="~/Home/Categoria?cat=PCs%20e%20Consoles" title="PCs e Consoles">
+        <img src="~/Imagens/icnsCats/icnPcs.png" />
+    </a>
+    <a href="~/Home/Categoria?cat=Outros" title="Outros">
+        <img src="~/Imagens/icnsCats/icnOutros.png" />
+    </a>
+</div>
+
+<br />
+<h2 class="titulo-form">@ViewBag.Categoria</h2>
+<br />
+
+<ul class="prod-group">
+
+    @foreach (var item in Model)
+    {
+        <li>
+
+            <div class="card-prod">
+                <div class="img-prod" style="background-image: url('@Html.DisplayFor(modelItem => item.link_img)');">
+                </div>
+                <h5 title="@Html.DisplayFor(modelItem => item.nm_prod)">
+                    @Html.DisplayFor(modelItem => item.nm_prod)
+                </h5>
+                <p>@Html.DisplayFor(modelItem => item.nm_categoria)</p>
+                <p>R$ @Html.DisplayFor(modelItem => item.vl_prod)</p>
+                <p>Em estoque: @Html.DisplayFor(modelItem => item.qt_estoque)</p>
+
+                <br />
+
+            </div>
+            <div class="add-link">
+                @Html.ActionLink("+", "AdicionarItem", "Carrinho", new { cd = item.cd_produto }, null)
+            </div>
+
+
+
+        </li>
+    }
+
+</ul>

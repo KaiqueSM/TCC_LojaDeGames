@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Python Games</title>
+
+    <script src="https://kit.fontawesome.com/6a571156a2.js" crossorigin="anonymous"></script>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark" id="nav-cli">
+        <a class="navbar-brand" href="#">
+            <img src="~/Imagens/pg_logo_asi_sl.png" width="95" id="logo-menu-nav" />
+        </a>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        @Html.ActionLink("  Python Games", "Index", "Home", new { area = "" }, new { @class = "navbar-brand a-appname fas fa-home" })
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse bg-black" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                @if (Session["ClienteLogado"] != null)
+                {
+                    <li class="nav-item">
+                        <a class="navbar-brand fas fa-gamepad" href="~/Usuario/EscolherGame">
+                            Agendar Teste
+                        </a>
+                    </li>
+                }
+            </ul>
+            @if (Session["ClienteLogado"] == null)
+            {
+                <a href="~/Home/Login" class="nav-link text-center">
+                    <i class="fas fa-sign-in-alt" style="color:white;">  Entrar</i>
+                </a>
+            }
+            else
+            {
+                <a href="~/Carrinho/Index" class="nav-link text-center">
+                    <i class="fas fa-shopping-cart" style="color:white;">  Carrinho</i>
+                </a>
+                <a href="~/Usuario/Index" class="nav-link text-center">
+                    <i class="fas fa-user" style="color:white;">  Perfil</i>
+                </a>
+                <a href="~/Home/Logout" class="nav-link text-center">
+                    <i class="fas fa-sign-out-alt" style="color:white;">  Sair</i>
+                </a>
+            }
+            <form class="form-inline my-2" action="~/Home/Pesquisa" method="post">
+                <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar" id="busca" name="busca" value="@ViewBag.Busca">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+        </div>
+    </nav>
+
+    <br />
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - The Growth Tree Development</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/inputmask")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

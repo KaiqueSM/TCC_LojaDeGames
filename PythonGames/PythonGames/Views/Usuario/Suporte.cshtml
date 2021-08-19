@@ -1,0 +1,66 @@
+﻿@model PythonGames.Classes.Models.Suporte
+
+@{
+    ViewBag.Title = "Solicitar Suporte";
+}
+
+<h2 class="titulo-form">Solicitar Suporte</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div style="display:none;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.cd_produto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.cd_produto, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.cd_produto, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.cd_carrinho, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.cd_carrinho, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.cd_carrinho, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div >
+            <div class="div-sup-cli">
+                @Html.LabelFor(model => model.sup_descricao, htmlAttributes: new { @class = "" })
+                <div>
+                    @Html.TextAreaFor(model => model.sup_descricao, new { htmlAttributes = new { @class = "" } }) <br />
+                    @Html.ValidationMessageFor(model => model.sup_descricao, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="btn-form">
+                <p class="text-danger">
+                    @ViewBag.ErroMsg
+                </p>
+                <input type="submit" value="Confirmar" class="btn btn-orange" />
+            </div>
+        </div>
+    </div>
+}
+<br />
+<hr />
+<div class="link-voltar-form text-center">
+    <i class="fas fa-arrow-circle-left" onclick="history.back()" style="cursor: pointer;">
+        Voltar
+    </i>
+    @Html.ActionLink(" Meus Dados", "Index", null, new { @class = "fas fa-user" })
+    &nbsp;
+    @Html.ActionLink(" Minhas Compras", "Compras", null, new { @class = "fas fa-shopping-bag" })
+    &nbsp;
+    @Html.ActionLink(" Testes De Games", "ListaDeTestes", null, new { @class = "fas fa-gamepad" })
+    &nbsp;
+    @Html.ActionLink(" Suportes", "ListaSuportes", null, new { @class = "fas fa-wrench" })
+</div>

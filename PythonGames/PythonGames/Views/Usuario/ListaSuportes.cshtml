@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.Suporte>
+<link href="~/Content/EstiloProdutos.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "ListaSuportes";
+}
+
+<h2 class="titulo-form">Minhas Compras</h2>
+<br>
+<ul class="prod-group">
+
+    @foreach (var item in Model)
+    {
+        <li>
+            <div class="card-prod">
+                <div class="img-prod" style="background-image: url('@Html.DisplayFor(modelItem => item.link_img)');">
+                </div>
+                <h5 title="@Html.DisplayFor(modelItem => item.nm_prod)">
+                    @Html.DisplayFor(modelItem => item.nm_prod)
+                </h5>
+                <p><b>Data:</b> @Html.DisplayFor(modelItem => item.dt_sup)</p>
+                @if (item.sup_status == 0)
+                {
+                    <p class="text-danger fas fa-times-circle"> Não Atendido</p>
+                }
+                else
+                {
+                    <p class="fas fa-check-circle text-success" title="Cheque Seu Email!!"> Atendido</p>
+                }
+                <br />
+                @Html.ActionLink("Ver Detalhes", "DetalhesSuporte", new { cd = item.cd_suporte })
+            </div>
+        </li>
+
+    }
+
+</ul>
+<br />
+<hr />
+<div class="link-voltar-form text-center">
+    <i class="fas fa-arrow-circle-left" onclick="history.back()" style="cursor: pointer;">
+        Voltar
+    </i>
+    @Html.ActionLink(" Meus Dados", "Index", null, new { @class = "fas fa-user" })
+    &nbsp;
+    @Html.ActionLink(" Minhas Compras", "Compras", null, new { @class = "fas fa-shopping-bag" })
+    &nbsp;
+    @Html.ActionLink(" Testes De Games", "ListaDeTestes", null, new { @class = "fas fa-gamepad" })
+    &nbsp;
+    @Html.ActionLink(" Suportes", "ListaSuportes", null, new { @class = "fas fa-wrench" })
+</div>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.ItensCarrinho>
+<link href="~/Content/EstiloProdutos.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Meu Carrinho";
+}
+
+<h2 class="titulo-form">Meu Carrinho</h2>
+@if (Model.Count() == 0)
+{
+    <br />
+    <h5 class="text-center">Ainda não há itens no seu carrinho :(</h5>
+    <br />
+    <p class="text-center"> @Html.ActionLink("Adicione itens!!","Index","Home") </p>
+}
+@if (Model.Count() != 0)
+{
+    <ul class="prod-group">
+
+        @foreach (var item in Model)
+        {
+            <li>
+                <a href="~/Carrinho/AdicionarItem?cd=@Html.DisplayFor(modelItem => item.cd_produto)">
+                    <div class="card-prod">
+                        <div class="img-prod" style="background-image: url('@Html.DisplayFor(modelItem => item.link_img)');">
+                        </div>
+                        <h5 title="@Html.DisplayFor(modelItem => item.nm_prod)">
+                            @Html.DisplayFor(modelItem => item.nm_prod)
+                        </h5>
+                        <p>@Html.DisplayFor(modelItem => item.nm_categoria)</p>
+                        <p>Valor unitário: R$ @Html.DisplayFor(modelItem => item.vl_prod)</p>
+                        <p>Quantidade: @Html.DisplayFor(modelItem => item.qt_item)</p>
+                        <p>Valor total: R$ @Html.DisplayFor(modelItem => item.vl_item)</p>
+
+                        <br />
+                        <br />
+
+                        @Html.ActionLink("Remover", "RemoverItem", new { cd = item.cd_produto }, new
+                            {
+                                @class = "btn-del",
+                                onclick = "return confirm('Deseja realmente remover " +
+                                @Html.DisplayFor(modelItem => item.nm_prod) + " do carrinho? ');"
+                            })
+                    </div>
+
+
+
+                </a>
+            </li>
+
+        }
+
+    </ul>
+    <div class="btn-form">
+        <p>
+            <hr />
+            Valor total do carrinho: @ViewBag.ValorCarrinho R$
+            <br />
+            <br />
+            @Html.ActionLink("Confirmar Compra","ConfirmarCompra",null,new { @class = "btn-orange" })
+            <br />
+        </p>
+    </div>
+}

@@ -1,0 +1,82 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.PedidoDeCompra>
+
+@{
+    ViewBag.Title = "Lista de Pedidos";
+}
+
+<h2>Lista de Pedido Pendentess</h2>
+<br />
+
+<div class="navbar">
+    @Html.ActionLink("Novo Pedidos", "Cadastrar", null, new { @class = "btn-orange" })
+    @Html.ActionLink("Mostrar Todos", "Index", null, new { @class = "btn btn-outline-secondary" })
+    @Html.ActionLink("Mostrar Apenas Concluídos", "ListaConcluídos", null, new { @class = "btn btn-outline-secondary" })
+
+    <form class="form-inline" method="post">
+        <input class="form-control mr-sm-2" id="no_cnpj" name="no_cnpj" type="search" placeholder="Buscar por CNPJ">
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+</div>
+
+<br />
+<table class="table table-borderless text-center">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nm_fornecedor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.no_cnpj)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dt_pedido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ped_status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nm_fornecedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.no_cnpj)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dt_pedido)
+            </td>
+            <td>
+                @Html.ActionLink(" Não efetuado", "ConfirmarEntrega", new { cd = item.cd_pedido }, new
+                {
+                    @class = "fas fa-times-circle text-danger",
+                    @title = "Confirmar entrega de pedido",
+                    onclick = "return confirm('Deseja realmente confirmar a entrega deste pedido? ');"
+                })
+            </td>
+            <td>
+                <span>
+                    @Html.ActionLink("Ver Itens", "ItensPedido", new { cd = item.cd_pedido })
+                    &nbsp;
+                    @Html.ActionLink("Deletar", "Deletar", new { cd = item.cd_pedido }, new
+                    {
+                        @class = "btn-del",
+                        onclick = "return confirm('Deseja realmente excluir este pedido? ');"
+                    })
+                </span>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#no_cnpj").inputmask("mask", { "mask": "99.999.999/9999-99" }, { reverse: true });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.TesteDeGame>
+<link href="~/Content/EstiloProdutos.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Lista de Testes";
+}
+
+<h2>Lista de Testes</h2>
+<br />
+
+<div class="navbar">
+    @Html.ActionLink("Novo Cliente", "Cadastrar", null, new { @class = "btn-orange" })
+
+    <form class="form-inline" method="post">
+        <input class="form-control mr-sm-2" id="cpf_cli" name="cpf_cli" type="search" placeholder="Buscar por CPF">
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+</div>
+
+<br />
+<ul class="prod-group">
+
+    @foreach (var item in Model)
+    {
+        <li>
+            <div class="card-prod">
+                <div class="img-prod" style="background-image: url('@Html.DisplayFor(modelItem => item.link_img)');">
+                </div>
+
+                <h5 title="@Html.DisplayFor(modelItem => item.nm_prod)">
+                    Game:
+                    @Html.DisplayFor(modelItem => item.nm_prod)
+                </h5>
+                <p title="@Html.DisplayFor(modelItem => item.nm_cli)">
+                    <b>@Html.DisplayNameFor(model => model.nm_cli): </b><br />
+                    @Html.DisplayFor(modelItem => item.nm_cli)
+                </p>
+                <p title="@Html.DisplayFor(modelItem => item.cpf_cli)">
+                    <b>@Html.DisplayNameFor(model => model.cpf_cli): </b><br />
+                    @Html.DisplayFor(modelItem => item.cpf_cli)
+                </p>
+                <br />
+                <p>
+                    <b>@Html.DisplayNameFor(model => model.dt_teste):</b>
+                    @Html.DisplayFor(modelItem => item.dt_teste)
+                </p>
+                <p>
+
+                    <b>@Html.DisplayNameFor(model => model.hr_teste):</b>
+                    @Html.DisplayFor(modelItem => item.hr_teste)
+                </p>
+                <br />
+                <div class="text-center">
+                    @Html.ActionLink("Alterar", "Alterar", new { cd = item.cd_teste }, new { @class = "btn-alt" })
+                    @Html.ActionLink("Deletar", "Deletar", new { cd = item.cd_teste }, new
+                    {
+                        @class = "btn-del",
+                        onclick = "return confirm('Deseja realmente excluir este teste? ');"
+                    })
+                </div>
+            </div>
+
+        </li>
+    }
+</ul>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#cpf_cli").inputmask("mask", { "mask": "999.999.999-99" }, { reverse: true });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

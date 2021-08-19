@@ -1,0 +1,175 @@
+﻿@model PythonGames.Classes.Models.Produto
+
+@{
+    ViewBag.Title = "Cadastrar Produto";
+}
+
+<h2 class="titulo-form">Cadastrar Produto</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="div-form-col1">
+            <div class="">
+                @Html.LabelFor(model => model.nm_prod, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.nm_prod, new { htmlAttributes = new { @class = "" } })<br />
+                    @Html.ValidationMessageFor(model => model.nm_prod, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="">
+                @Html.LabelFor(model => model.link_img, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.link_img, new { htmlAttributes = new { @class = "" } })<br />
+                    @Html.ValidationMessageFor(model => model.link_img, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="">
+                @Html.LabelFor(model => model.vl_prod, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.vl_prod, new { htmlAttributes = new { @id = "" } })<br />
+                    @Html.ValidationMessageFor(model => model.vl_prod, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="">
+                @Html.LabelFor(model => model.qt_estoque, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.qt_estoque, new { htmlAttributes = new { @class = "" } })<br />
+                    @Html.ValidationMessageFor(model => model.qt_estoque, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-form-col2">
+
+            <div class="">
+                @Html.LabelFor(model => model.prod_desc, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.TextAreaFor(model => model.prod_desc, new { htmlAttributes = new { @class = "" } })<br />
+                    @Html.ValidationMessageFor(model => model.prod_desc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="">
+                @Html.LabelFor(model => model.nm_categoria, htmlAttributes: new {  })
+                <div class="">
+                    @Html.DropDownListFor(model => model.nm_categoria,
+                      new List<SelectListItem> {
+                      new SelectListItem{ Value = "Games" , Text = "Games"  },
+                      new SelectListItem{ Value = "Teclados" , Text = "Teclados" },
+                      new SelectListItem{ Value = "Mouses e Controles" , Text = "Mouses e Controles"},
+                      new SelectListItem{ Value = "Monitores" , Text = "Monitores" },
+                      new SelectListItem{ Value = "Headsets" , Text = "Headsets" },
+                      new SelectListItem{ Value = "PCs e Consoles" , Text = "PCs e Consoles" },
+                      new SelectListItem{ Value = "Outros" , Text = "Outros" }
+                    }, new { @id = "nm_categoria", onclick = "MostraDiv()" })
+                    @Html.ValidationMessageFor(model => model.nm_categoria, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+        </div>
+        <div id="div-det">
+            <hr />
+
+            <div class="div-form-col1">
+                <div class="">
+                    @Html.LabelFor(model => model.nm_genero, htmlAttributes: new { @class = "" })
+                    <div class="">
+                        @Html.DropDownListFor(model => model.nm_genero,
+                          new List<SelectListItem> {
+                          new SelectListItem{ Value = "Ação e Aventura" , Text = "Ação e Aventura" },
+                          new SelectListItem{ Value = "Corrida" , Text = "Corrida" },
+                          new SelectListItem{ Value = "Esporte" , Text = "Esporte" },
+                          new SelectListItem{ Value = "Estratégia" , Text = "Estratégia" },
+                          new SelectListItem{ Value = "FPS" , Text = "FPS" },
+                          new SelectListItem{ Value = "Hack and Slash" , Text = "Hack and Slash" },
+                          new SelectListItem{ Value = "RPG" , Text = "RPG"  },
+                          new SelectListItem{ Value = "Simulação" , Text = "Simulação" },
+                          new SelectListItem{ Value = "Outro" , Text = "Outro" }
+                        })
+                        @Html.ValidationMessageFor(model => model.nm_genero, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-form-col2">
+
+                <div class="">
+                    @Html.LabelFor(model => model.vl_indicacao, htmlAttributes: new { @class = "" })
+                    <div class="">
+                        @Html.DropDownListFor(model => model.vl_indicacao,
+                          new List<SelectListItem> {
+                          new SelectListItem{ Value = "10 anos" , Text = "10 anos"  },
+                          new SelectListItem{ Value = "12 anos" , Text = "12 anos"  },
+                          new SelectListItem{ Value = "14 anos" , Text = "14 anos"  },
+                          new SelectListItem{ Value = "16 anos" , Text = "16 anos"  },
+                          new SelectListItem{ Value = "18 anos" , Text = "18 anos"  },
+                          new SelectListItem{ Value = "Livre" , Text = "Livre" }
+                        })
+                        @Html.ValidationMessageFor(model => model.vl_indicacao, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="btn-form">
+                <p class="text-danger">
+                    @ViewBag.ErroMsg
+                </p>
+                <input type="submit" value="Cadastrar" class="btn btn-orange" />
+            </div>
+        </div>
+    </div>
+    }
+
+    <br />
+    <div class="link-voltar-form">
+        <i class="fas fa-arrow-circle-left">
+            @Html.ActionLink("Voltar", "Index")
+        </i>
+    </div>
+
+
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                $("#cpf_cli").inputmask("mask", { "mask": "999.999.999-99" }, { reverse: true });
+                $("#vl_prod").inputmask('currency', {
+                    "autoUnmask": true,
+                    radixPoint: ".",
+                    groupSeparator: "",
+                    allowMinus: false,
+                    //prefix: 'R$ ',
+                    digits: 2,
+                    digitsOptional: false,
+                    rightAlign: true,
+                    unmaskAsNumber: true
+                });
+            });
+
+
+            function MostraDiv() {
+                var select = document.getElementById('nm_categoria');
+                var value = select.options[select.selectedIndex].value;
+
+
+                if (value == 'Games') {
+                    document.getElementById('div-det').style.display = 'block';
+                }
+                else {
+                    document.getElementById('div-det').style.display = 'none';
+                }
+            };
+        </script>
+        @Scripts.Render("~/bundles/jqueryval")
+    }

@@ -1,0 +1,101 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.Funcionario>
+
+@{
+    ViewBag.Title = "Lista de Funcionários";
+}
+
+<h2>Funcionários Ativos</h2>
+<p>
+    @Html.ActionLink("Ver Meus Dados", "Index")
+</p>
+
+<div class="navbar">
+    @Html.ActionLink("Novo Funcionário", "Cadastrar", null, new { @class = "btn-orange" })
+    @Html.ActionLink("Mostrar Inactivos", "ListaInativos", null, new { @class = "btn btn-outline-secondary" })
+
+    <form class="form-inline" method="post">
+        <input class="form-control mr-sm-2" id="cpf_func" name="cpf_func" type="search" placeholder="Buscar por CPF">
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+</div>
+
+<br />
+<table class="table table-borderless text-center">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nm_func)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cpf_func)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nm_usu)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.func_acesso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.flag)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nm_func)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cpf_func)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nm_usu)
+            </td>
+
+            <td>
+                @if (item.func_acesso == 1)
+                {
+                    <b>Total</b>
+                }
+                else
+                {
+                    <p>Comum</p>
+                }
+            </td>
+            <td>
+                @if (item.flag != 1)
+                {
+                    <b>Ativo</b>
+                }
+                else
+                {
+                    <p>Inativo</p>
+                }
+            </td>
+            <td>
+                @if (item.func_acesso != 1)
+                {
+                    @Html.ActionLink("Alterar", "Alterar", new { cd = item.cd_funcionario }, new { @class = "btn-alt" })
+                    @Html.ActionLink("Desativar", "Desativar", new { cd = item.cd_funcionario }, new
+                    {
+                        @class = "btn-del",
+                        onclick = "return confirm('Deseja realmente desativar " +
+                        @Html.DisplayFor(modelItem => item.nm_func) + " ? ');"
+                    })
+                }
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#cpf_func").inputmask("mask", { "mask": "999.999.999-99" }, { reverse: true });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

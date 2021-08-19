@@ -1,0 +1,53 @@
+﻿@model PythonGames.Classes.Models.Produto
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2 class="titulo-form">Detalhes</h2>
+
+<div>
+    <div class="form-carrinho">
+
+        <div class="item-form-carrinho form-carrinho-img" style="background-image: url('@Html.DisplayFor(model => model.link_img)');">
+        </div>
+        <div class="item-form-carrinho form-carrinho-inputs">
+            <h3>@Html.DisplayFor(model => model.nm_prod)</h3>
+            <hr style="border: 1px solid rgb(255, 127, 38);">
+            <h6>
+                @Html.DisplayFor(model => model.prod_desc)
+            </h6>
+            <p>@Html.DisplayFor(model => model.nm_categoria)</p>
+
+            Preço: @Html.DisplayFor(model => model.vl_prod) R$
+            <br />
+
+            Em Estoque: @Html.DisplayFor(model => model.qt_estoque)
+
+            @if (Model.nm_categoria == "Games")
+            {
+                <br />
+                @Html.DisplayNameFor(model => model.nm_genero) <span>:&nbsp;</span> @Html.DisplayFor(model => model.nm_genero)
+                <br />
+                @Html.DisplayNameFor(model => model.vl_indicacao) <span>:&nbsp;</span> @Html.DisplayFor(model => model.vl_indicacao)
+            }
+
+            <br />
+            <br />
+
+            @if ((int)Session["AcFuncionarioLogado"] == 1)
+            {
+                @Html.ActionLink("Alterar", "Alterar", new { cd = Model.cd_produto, nm_categoria = Model.nm_categoria }, new { @class = "btn-alt" })
+            }
+
+        </div>
+
+    </div>
+
+</div>
+<br />
+<div class="link-voltar-form">
+    <i class="fas fa-arrow-circle-left">
+        @Html.ActionLink("Voltar", "Index")
+    </i>
+</div>

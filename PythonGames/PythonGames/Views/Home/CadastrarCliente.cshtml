@@ -1,0 +1,115 @@
+﻿@model PythonGames.Classes.Models.Cliente
+
+@{
+    ViewBag.Title = "CadastrarCliente";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+
+}
+
+
+<div class="div-link-voltar">
+    <i class="fas fa-arrow-circle-left">
+        @Html.ActionLink("Voltar", "Index", "Home")
+    </i>
+</div>
+
+<div class="div-link-func">
+    <i class="fas fa-user-tie">
+        @Html.ActionLink("Área do Funcionário", "Login", "Funcionario", new { area = "Gerenciamento" }, new { @class = "" })
+    </i>
+</div>
+
+<div class="div-login">
+    <div class="div-login-cad div-login-item">
+        <h2>Bem Vindo!</h2>
+        <img src="~/Imagens/pg_logo_asi_sl_sc.png" />
+        <h5>
+            Preencha todos os campos ao lado para cadastrar-se
+        </h5>
+        <h5>
+            Caso já tenha cadastro, clique no botão abaio:
+        </h5>
+        <a href="/Home/Login">
+            <p class="btn btn-outline-light">Login</p>
+        </a>
+
+
+    </div>
+
+    <div class="div-login-form div-login-item">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div>
+                <h4>Cadastre-se!</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div>
+                    <div>
+                        <label for="nm_cli">
+                            <i class="fas fa-user-alt">&nbsp; @Html.LabelFor(model => model.nm_cli)</i>
+                        </label>
+                        @Html.EditorFor(model => model.nm_cli, new { htmlAttributes = new { @id = "nm_cli" } })
+                        @Html.ValidationMessageFor(model => model.nm_cli, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <label for="cpf_cli">
+                            <i class="fas fa-shield-alt">&nbsp; @Html.LabelFor(model => model.cpf_cli)</i>
+                        </label>
+                        @Html.EditorFor(model => model.cpf_cli, new { htmlAttributes = new { @id = "cpf_cli" } })
+                        @Html.ValidationMessageFor(model => model.cpf_cli, "", new { @class = "text-danger" })
+                        <p class="text-danger" style="font-size: 70%; margin-bottom: -1%; margin-top: -1%;">
+                            @ViewBag.CPFMsg
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <label for="nm_email">
+                            <i class="fas fa-envelope">&nbsp; @Html.LabelFor(model => model.nm_email)</i>
+                        </label>
+                        @Html.EditorFor(model => model.nm_email, new { htmlAttributes = new { @type = "email", @id = "nm_email" } })
+                        @Html.ValidationMessageFor(model => model.nm_email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <label for="senha_cli">
+                            <i class="fas fa-lock">&nbsp; @Html.LabelFor(model => model.senha_cli)</i>
+                        </label>
+                        @Html.EditorFor(model => model.senha_cli, new { htmlAttributes = new { @type = "password", @id = "senha_cli" } })
+                        @Html.ValidationMessageFor(model => model.senha_cli, "", new { @class = "text-danger" })
+                        <p class="text-danger" style="font-size: 70%; margin-bottom: -1%; margin-top: -1%;">
+                            @ViewBag.ErroMsg
+                        </p>
+                    </div>
+                </div>
+                <hr />
+                <div>
+                    <div>
+                        <input type="submit" value="Cadastrar-se" class="btn btn-outline-dark" id="btn-entrar" />
+                    </div>
+                </div>
+
+                <a href="/Home/Login" id="ink-cad-mobile">
+                    <p>Fazer Login</p>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#cpf_cli").inputmask("mask", { "mask": "999.999.999-99" }, { reverse: true });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

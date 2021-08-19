@@ -1,0 +1,120 @@
+﻿@model PythonGames.Classes.Models.Funcionario
+
+@{
+    ViewBag.Title = "Meus Dados";
+}
+
+<h2 class="titulo-form">Meus Dados</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.cd_funcionario)
+
+        <div class="div-form-col1">
+            <div class="">
+                @Html.LabelFor(model => model.cd_funcionario, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.cd_funcionario, new { htmlAttributes = new { @readonly = "readonly" } })
+                    @Html.ValidationMessageFor(model => model.cd_funcionario, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="">
+                @Html.LabelFor(model => model.nm_func, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @if ((int)Session["AcFuncionarioLogado"] == 1)
+                    {
+                        @Html.EditorFor(model => model.nm_func, new { htmlAttributes = new { @class = "" } })
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.nm_func, new { htmlAttributes = new { @class = "", @readonly = "readonly" } })
+                    }<br />
+                    @Html.ValidationMessageFor(model => model.nm_func, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="">
+                @Html.LabelFor(model => model.cpf_func, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @if ((int)Session["AcFuncionarioLogado"] == 1)
+                    {
+                        @Html.EditorFor(model => model.cpf_func, new { htmlAttributes = new { @class = "", @id = "cpf_func" } })
+                    }
+                    else
+                    {
+                        @Html.EditorFor(model => model.cpf_func, new { htmlAttributes = new { @class = "", @readonly = "readonly" } })
+                    }<br />
+                    @Html.ValidationMessageFor(model => model.cpf_func, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-form-col2">
+            <div class="">
+                @Html.LabelFor(model => model.nm_usu, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.nm_usu, new { htmlAttributes = new { @class = "" } })<br />
+                    @Html.ValidationMessageFor(model => model.nm_usu, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="">
+                @Html.LabelFor(model => model.senha_usu, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.senha_usu, new { htmlAttributes = new { @class = "" } })<br />
+                    @Html.ValidationMessageFor(model => model.senha_usu, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="">
+                @Html.LabelFor(model => model.func_acesso, htmlAttributes: new { @class = "" }):
+                @if ((int)Session["AcFuncionarioLogado"] == 1)
+                {
+                    <span><b>Total</b></span>
+                }
+                else
+                {
+                    <span><b>Comum</b></span>
+                }
+
+            </div>
+        </div>
+        <div class="" style="display: none;">
+            @Html.LabelFor(model => model.func_acesso, htmlAttributes: new { @class = "" }):
+            @Html.RadioButtonFor(model => model.func_acesso, 0, new { @id = "txtComum" })
+            <label for="txtComum">  Comum </label>
+            @Html.RadioButtonFor(model => model.func_acesso, 1, new { @id = "txtTotal" })
+            <label for="txtTotal">  Total </label>
+
+        </div>
+
+        <div class="">
+            <div class="btn-form">
+                <p class="text-danger">
+                    @ViewBag.ErroMsg
+                </p>
+                <input type="submit" value="Salvar Mudanças" class="btn btn-orange" />
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#cpf_func").inputmask("mask", { "mask": "999.999.999-99" }, { reverse: true });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,86 @@
+﻿@model PythonGames.Classes.Models.Cliente
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+<div class="div-link-voltar">
+    <i class="fas fa-arrow-circle-left">
+        @Html.ActionLink("Voltar", "Index", "Home")
+    </i>
+</div>
+
+<div class="div-link-func">
+    <i class="fas fa-user-tie">
+        @Html.ActionLink("Área do Funcionário", "Login", "Funcionario", new { area = "Gerenciamento" }, new { @class = "" })
+
+    </i>
+</div>
+
+<div class="div-login">
+    <div class="div-login-cad div-login-item">
+        <h2>Bem Vindo!</h2>
+        <img src="~/Imagens/pg_logo_asi_sl_sc.png" />
+        <h5>
+            Caso não tenha cadastro, clique no botão abaixo!
+        </h5>
+        <a href="/Home/CadastrarCliente">
+            <p class="btn btn-outline-light">Cadastrar-se</p>
+        </a>
+
+
+    </div>
+
+    <div class="div-login-form div-login-item">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div>
+            <h4>Login</h4>
+            <br />
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div>
+                <div>
+                    <label for="nm_email">
+                        <i class="fas fa-envelope">&nbsp; @Html.LabelFor(model => model.nm_email)</i>
+                    </label>
+                    @Html.EditorFor(model => model.nm_email, new { htmlAttributes = new { @type = "email", @id = "nm_email" } })
+                    @Html.ValidationMessageFor(model => model.nm_email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <label for="senha_cli">
+                        <i class="fas fa-lock">&nbsp; @Html.LabelFor(model => model.senha_cli)</i>
+                    </label>
+                    @Html.EditorFor(model => model.senha_cli, new { htmlAttributes = new { @type = "password", @id = "senha_cli" } })
+                    @Html.ValidationMessageFor(model => model.senha_cli, "", new { @class = "text-danger" })
+                    <p class="text-danger">
+                        @ViewBag.ErroMsg
+                    </p>
+                </div>
+            </div>
+            <hr />
+            <br />
+
+            <div>
+                <div>
+                    <input type="submit" value="Entrar" class="btn btn-outline-dark" id="btn-entrar" />
+                </div>
+            </div>
+
+            <a href="/Home/CadastrarCliente" id="ink-cad-mobile">
+                <p>Cadastrar-se</p>
+            </a>
+        </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

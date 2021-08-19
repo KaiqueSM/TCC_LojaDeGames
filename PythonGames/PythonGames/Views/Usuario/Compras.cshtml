@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.Carrinho>
+
+@{
+    ViewBag.Title = "Minhas Compras";
+}
+
+<h2 class="titulo-form">Minhas Compras</h2>
+<br>
+<div class="compras-list">
+    @foreach (var item in Model)
+    {
+
+        <div class="card card-compra text-center">
+            <div class="card-body">
+                <h5 class="card-title">
+                    @Html.DisplayNameFor(model => model.dt_venda): @Html.DisplayFor(modelItem => item.dt_venda)
+                </h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">@Html.DisplayNameFor(model => model.cd_carrinho): @Html.DisplayFor(modelItem => item.cd_carrinho)</li>
+                <li class="list-group-item">@Html.DisplayNameFor(model => model.vl_total): @Html.DisplayFor(modelItem => item.vl_total) R$</li>
+                <li class="list-group-item">@Html.DisplayNameFor(model => model.nm_forma): <br />@Html.DisplayFor(modelItem => item.nm_forma)</li>
+            </ul>
+            <div class="card-body">
+                @Html.ActionLink("Ver Itens", "ItensCompra", new { cd = item.cd_carrinho })
+                @if (item.cd_forma == 1 || item.cd_forma == 2)
+                {
+                    <span>|</span>
+                    @Html.ActionLink("Dados de entrega", "DadosEntrega", new { cd = item.cd_carrinho })
+                }
+            </div>
+        </div>
+
+    }
+
+</div>
+<br />
+<hr />
+<div class="link-voltar-form text-center">
+    <i class="fas fa-arrow-circle-left" onclick="history.back()" style="cursor: pointer;">
+        Voltar
+    </i>
+    @Html.ActionLink(" Meus Dados", "Index", null, new { @class = "fas fa-user" })
+    &nbsp;
+    @Html.ActionLink(" Minhas Compras", "Compras", null, new { @class = "fas fa-shopping-bag" })
+    &nbsp;
+    @Html.ActionLink(" Testes De Games", "ListaDeTestes", null, new { @class = "fas fa-gamepad" })
+    &nbsp;
+    @Html.ActionLink(" Suportes", "ListaSuportes", null, new { @class = "fas fa-wrench" })
+</div>

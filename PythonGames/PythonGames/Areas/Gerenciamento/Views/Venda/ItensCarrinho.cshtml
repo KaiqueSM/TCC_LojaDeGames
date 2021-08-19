@@ -1,0 +1,127 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.ItensCarrinho>
+<link href="~/Content/EstiloProdutos.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Itens do Carrinho";
+}
+
+<h2>Itens do Carrinho</h2>
+<br />
+
+<p>
+    @Html.ActionLink("Adicionar Item", "EscolherProduto", null, new { @class = "btn-orange" })
+</p>
+<br />
+
+@if (Model.Count() == 0)
+{
+    <h5>Ainda não há itens neste carrinho!!</h5>
+    <br />
+}
+@if (Model.Count() != 0)
+{
+    <ul class="prod-group">
+
+        @foreach (var item in Model)
+        {
+            <li>
+
+                <div class="card-prod">
+                    <div class="img-prod" style="background-image: url('@Html.DisplayFor(modelItem => item.link_img)');">
+                    </div>
+                    <h5 title="@Html.DisplayFor(modelItem => item.nm_prod)">
+                        @Html.DisplayFor(modelItem => item.nm_prod)
+                    </h5>
+                    <p>@Html.DisplayFor(modelItem => item.nm_categoria)</p>
+                    <p>Valor unitário: R$ @Html.DisplayFor(modelItem => item.vl_prod)</p>
+                    <p>Quantidade: @Html.DisplayFor(modelItem => item.qt_item)</p>
+                    <p>Valor total: R$ @Html.DisplayFor(modelItem => item.vl_item)</p>
+
+                    <br />
+                    <br />
+
+                    @if ((int)Session["AcFuncionarioLogado"] == 1)
+                    {
+                        @Html.ActionLink("Deletar", "DeletarItem", new { cd = item.cd_produto }, new
+                        {
+                            @class = "btn-del",
+                            onclick = "return confirm('Deseja realmente excluir " +
+                            @Html.DisplayFor(modelItem => item.nm_prod) + " do carrinho? ');"
+                        })
+                    }
+                </div>
+
+
+
+
+            </li>
+
+        }
+
+    </ul>
+
+    if (@ViewBag.FrmPag == 3)
+    {
+        <div class="btn-form">
+            <p>
+                <hr />
+                Valor total do carrinho: @ViewBag.ValorCarrinho R$
+                <hr />
+
+            </p>
+            <form action="~/Gerenciamento/Venda/ItensCarrinho" method="post">
+                <div style="display: none;">
+                    <input type="text" name="nm_cartao" id="nm_cartao" value="" />
+                    <input type="text" name="no_cartao" id="no_cartao" value="" />
+                    <input type="text" name="no_cvv" id="no_cvv" value="" />
+                </div>
+                <input type="submit" value="Confirmar compra" class="btn-orange" />
+            </form>
+        </div>
+    }
+    else
+    {
+        <br />
+        <div class="btn-form">
+            <hr />
+            Valor total do carrinho: @ViewBag.ValorCarrinho R$
+            <hr />
+
+        </div>
+        <div class="form-horizontal">
+            <form action="~/Gerenciamento/Venda/ItensCarrinho" method="post">
+                <div class="div-form-col1">
+                    <label class="" for="nm_cartao"> Nome no Cartão </label><br />
+                    <input type="text" maxlength="50" required name="nm_cartao" id="nm_cartao" /><br />
+
+                    <label class="" for="no_cartao"> Número do Cartão </label><br />
+                    <input type="text" maxlength="19" required name="no_cartao" id="no_cartao" /><br />
+                </div>
+                <div class="div-form-col2">
+                    <label class="" for="no_cvv"> CVV </label><br />
+                    <input type="text" maxlength="3" required name="no_cvv" id="no_cvv" /><br />
+
+                    <label class="" for="dt_validade"> Data de validade </label><br />
+                    <input type="date" required name="dt_validade" id="dt_validade" /><br />
+                </div>
+                <div class="btn-form">
+                    <p class="text-danger">
+                        @ViewBag.ErroMsg
+                    </p>
+                    <input type="submit" value="Confirmar compra" class="btn-orange" />
+                </div>
+            </form>
+        </div>
+    }
+
+
+
+}
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#no_cartao").inputmask("mask", { "mask": "9999-9999-9999-9999" }, { reverse: true });
+            $("#no_cvv").inputmask("mask", { "mask": "999" }, { reverse: true });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

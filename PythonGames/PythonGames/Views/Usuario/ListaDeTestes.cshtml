@@ -1,0 +1,64 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.TesteDeGame>
+<link href="~/Content/EstiloProdutos.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Meus Testes";
+}
+
+<h2>Meus Testes</h2>
+<br />
+<p>
+    @Html.ActionLink("Agendar Teste", "EscolherGame", null, new { @class = "btn-orange" })
+</p>
+<br />
+<ul class="prod-group">
+    @foreach (var item in Model)
+    {
+        <li>
+            <div class="card-prod">
+                <div class="img-prod" style="background-image: url('@Html.DisplayFor(modelItem => item.link_img)');">
+                </div>
+                <h5 title="@Html.DisplayFor(modelItem => item.nm_prod)">
+                    @Html.DisplayFor(modelItem => item.nm_prod)
+                </h5>
+                <p>
+                    @Html.DisplayNameFor(model => model.dt_teste):
+                    @Html.DisplayFor(modelItem => item.dt_teste)
+                </p>
+                <p>
+                    @Html.DisplayNameFor(model => model.hr_teste):
+                    @Html.DisplayFor(modelItem => item.hr_teste)
+                </p>
+                <br />
+                @if (item.dt_teste > DateTime.Now)
+                {
+                    @Html.ActionLink("Cancelar", "CancelarTeste", new { cd = item.cd_teste }, new
+                    {
+                        @class = "btn-del",
+                        onclick = "return confirm('Deseja realmente cancelar este teste? ');"
+                    })
+                }
+                else
+                {
+                    <br />
+                }
+
+            </div>
+        </li>
+    }
+
+</ul>
+<br />
+<hr />
+<div class="link-voltar-form text-center">
+    <i class="fas fa-arrow-circle-left" onclick="history.back()" style="cursor: pointer;">
+        Voltar
+    </i>
+    @Html.ActionLink(" Meus Dados", "Index", null, new { @class = "fas fa-user" })
+    &nbsp;
+    @Html.ActionLink(" Minhas Compras", "Compras", null, new { @class = "fas fa-shopping-bag" })
+    &nbsp;
+    @Html.ActionLink(" Testes De Games", "ListaDeTestes", null, new { @class = "fas fa-gamepad" })
+    &nbsp;
+    @Html.ActionLink(" Suportes", "ListaSuportes", null, new { @class = "fas fa-wrench" })
+</div>

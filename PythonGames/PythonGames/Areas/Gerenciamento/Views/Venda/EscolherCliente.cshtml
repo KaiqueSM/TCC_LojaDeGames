@@ -1,0 +1,59 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.Cliente>
+
+@{
+    ViewBag.Title = "Escolher Cliente";
+}
+
+<h2>Escolha Cliente</h2>
+<br />
+
+<div class="navbar">
+    <form class="form-inline" method="post">
+        <input class="form-control mr-sm-2" id="cpf_cli" name="cpf_cli" type="search" placeholder="Buscar por CPF">
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+</div>
+
+<br />
+<table class="table table-borderless text-center">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nm_cli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cpf_cli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.nm_email)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nm_cli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cpf_cli)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nm_email)
+            </td>
+            <td>
+                @Html.ActionLink("Escolher", "ClienteEscolhido", new { cd = item.cd_cliente, nm = item.nm_cli })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#cpf_cli").inputmask("mask", { "mask": "999.999.999-99" }, { reverse: true });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

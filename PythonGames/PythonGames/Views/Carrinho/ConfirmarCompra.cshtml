@@ -1,0 +1,242 @@
+﻿@model PythonGames.Classes.Models.Entrega
+
+@{
+    ViewBag.Title = "Confirmar Compra";
+}
+
+<script>
+
+    function frete(cep) {
+        $.ajax({
+            url: '@Url.Action("CalculaFrete","Carrinho")?cep='+cep,
+            type: "POST",
+            contentType: "aplication/json",
+            data: "",
+            success: function (result) {
+                document.getElementById('dt_entrega').value = (result[0]+" dias");
+                document.getElementById('vl_frete').value = (result[1]+"R$");
+            },
+            error: function (xhr, exception) {
+                alert("Erro ao calcular frete");
+                document.getElementById('dt_entrega').value = ("");
+                document.getElementById('vl_frete').value = ("");
+            }
+        });
+    }
+
+    function limpa_formulário_cep() {
+        //Limpa valores do formulário de cep.
+        document.getElementById('nm_rua').value = ("");
+        document.getElementById('nm_bairro').value = ("");
+        document.getElementById('nm_cidade').value = ("");
+        document.getElementById('nm_estado').value = ("");
+        document.getElementById('dt_entrega').value = ("");
+        document.getElementById('vl_frete').value = ("");
+    }
+
+    function meu_callback(conteudo) {
+        if (!("erro" in conteudo)) {
+            //Atualiza os campos com os valores.
+            document.getElementById('nm_rua').value = (conteudo.logradouro);
+            document.getElementById('nm_bairro').value = (conteudo.bairro);
+            document.getElementById('nm_cidade').value = (conteudo.localidade);
+            document.getElementById('nm_estado').value = (conteudo.uf);
+        } //end if.
+        else {
+            //CEP não Encontrado.
+            limpa_formulário_cep();
+            alert("CEP não encontrado.");
+        }
+    }
+
+    function pesquisacep(valor) {
+
+        //Nova variável "cep" somente com dígitos.
+        var cep = valor.replace(/\D/g, '');
+
+        //Verifica se campo cep possui valor informado.
+        if (cep != "") {
+
+            //Expressão regular para validar o CEP.
+            var validacep = /^[0-9]{8}$/;
+
+            //Valida o formato do CEP.
+            if (validacep.test(cep)) {
+
+                //Preenche os campos com "..." enquanto consulta webservice.
+                document.getElementById('nm_estado').value = "...";
+                document.getElementById('nm_bairro').value = "...";
+                document.getElementById('nm_cidade').value = "...";
+                document.getElementById('nm_rua').value = "...";
+                document.getElementById('dt_entrega').value = "...";
+                document.getElementById('vl_frete').value = "...";
+
+                //Cria um elemento javascript.
+                var script = document.createElement('script');
+
+                //Sincroniza com o callback.
+                script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+                //Insere script no documento e carrega o conteúdo.
+                document.body.appendChild(script);
+
+                //Chamando método para calcular frete
+                frete(cep);
+
+
+            } //fim if.
+            else {
+                //cep é inválido.
+                limpa_formulário_cep();
+                alert("Formato de CEP inválido.");
+            }
+        } //fim if.
+        else {
+            //cep sem valor, limpa formulário.
+            limpa_formulário_cep();
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
+<h2 class="titulo-form">Confirmar Compra</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <br />
+    <h4 class="text-center">Entrega</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="div-form-col1">
+
+        <div class="">
+            @Html.LabelFor(model => model.no_cep, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.EditorFor(model => model.no_cep, new { htmlAttributes = new { @id = "no_cep", onblur = "pesquisacep(this.value);" } })<br />
+                @Html.ValidationMessageFor(model => model.no_cep, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="">
+            @Html.LabelFor(model => model.nm_estado, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.EditorFor(model => model.nm_estado, new { htmlAttributes = new { @readonly = "readonly", @id = "nm_estado" } })
+            </div>
+        </div>
+
+        <div class="">
+            @Html.LabelFor(model => model.nm_cidade, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.EditorFor(model => model.nm_cidade, new { htmlAttributes = new { @readonly = "readonly", @id = "nm_cidade" } })
+            </div>
+        </div>
+
+        <div class="">
+            @Html.LabelFor(model => model.nm_bairro, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.EditorFor(model => model.nm_bairro, new { htmlAttributes = new { @readonly = "readonly", @id = "nm_bairro" } })
+            </div>
+        </div>
+
+        <div class="">
+            @Html.LabelFor(model => model.nm_rua, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.EditorFor(model => model.nm_rua, new { htmlAttributes = new { @readonly = "readonly", @id = "nm_rua" } })
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="div-form-col2">
+
+        <div class="">
+            @Html.LabelFor(model => model.no_end, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.EditorFor(model => model.no_end, new { htmlAttributes = new { @class = "" } })<br />
+                @Html.ValidationMessageFor(model => model.no_end, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="">
+            @Html.LabelFor(model => model.nm_complemento, htmlAttributes: new { @class = "" })
+            <div class="">
+                @Html.EditorFor(model => model.nm_complemento, new { htmlAttributes = new { @class = "" } })
+                @Html.ValidationMessageFor(model => model.nm_complemento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="">
+            @Html.LabelFor(model => model.vl_frete, htmlAttributes: new { @class = "" })
+            <div class="">
+                <input class="text-box single-line" data-val="true" id="vl_frete" name="vl_frete" readonly="readonly" type="text" />
+            </div>
+        </div>
+
+        <div class="">
+            <label class="" for="dt_entrega">Prazo de Entrega</label>
+            <div class="">
+                <input class="text-box single-line" data-val="true" id="dt_entrega" name="dt_entrega" readonly="readonly" />
+            </div>
+        </div>
+
+    </div>
+    <br />
+    <br />
+    <h4 class="text-center">Pagamento</h4>
+    <hr />
+    <div class="div-form-col1">
+        @Html.DropDownList("cd_forma", new SelectList(ViewBag.Formas, "cd_forma", "nm_forma", "Selecione"),
+        htmlAttributes: new { @class = "standardSelect" }) <br /><br />
+
+        <label class="" for="nm_cartao"> Nome no Cartão </label><br />
+        <input type="text" maxlength="50" required name="nm_cartao" id="nm_cartao" /><br />
+
+        <label class="" for="no_cartao"> Número do Cartão </label><br />
+        <input type="text" maxlength="19" required name="no_cartao" id="no_cartao" /><br />
+    </div>
+    <div class="div-form-col2">
+        <label class="" for="no_cvv"> CVV </label><br />
+        <input type="text" maxlength="3" required name="no_cvv" id="no_cvv" /><br />
+
+        <label class="" for="dt_validade"> Data de validade </label><br />
+        <input type="date" required name="dt_validade" id="dt_validade" /><br />
+    </div>
+
+    <div class="">
+        <div class="btn-form">
+            <p class="text-danger">
+                @ViewBag.ErroMsg
+            </p>
+            <p>
+                @Html.ValidationMessageFor(model => model.nm_estado, "", new { @class = "text-danger" })
+            </p>
+            <input type="submit" value="Finalizar" class="btn btn-orange" />
+        </div>
+    </div>
+</div>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#no_cep").inputmask("mask", { "mask": "99999-999" }, { reverse: true });
+            $("#no_cartao").inputmask("mask", { "mask": "9999-9999-9999-9999" }, { reverse: true });
+            $("#no_cvv").inputmask("mask", { "mask": "999" }, { reverse: true });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

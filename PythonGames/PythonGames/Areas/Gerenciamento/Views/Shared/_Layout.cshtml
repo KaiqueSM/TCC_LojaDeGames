@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Python Games</title>
+    <link href="~/Content/EstiloGerenciamento.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css"
+          href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <script src="https://kit.fontawesome.com/6a571156a2.js" crossorigin="anonymous"></script>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+    <ul class="side-menu">
+        <li><a href="#"><span class="fa fa-bars"></span>Menu</a></li>
+        @if ((int)Session["AcFuncionarioLogado"] == 1)
+        {
+            <li><a href="~/Gerenciamento/Funcionario/Listar"><span class="fa fa-user-tie"></span>Funcionários</a></li>
+        }
+        else
+        {
+            <li><a href="~/Gerenciamento/Funcionario/Index"><span class="fa fa-user-tie"></span>Meus Dados</a></li>
+        }
+        <li><a href="~/Gerenciamento/Venda"><span class="fa fa-cash-register"></span>Vendas</a></li>
+        <li><a href="~/Gerenciamento/Entrega"><span class="fa fa-box-open"></span>Entregas</a></li>
+        <li><a href="~/Gerenciamento/Cliente"><span class="fa fa-users"></span>Clientes</a></li>
+        <li><a href="~/Gerenciamento/Fornecedor"><span class="fa fa-truck"></span>Fornecedores</a></li>
+        <li><a href="~/Gerenciamento/Produto"><span class="fa fa-product-hunt"></span>Produtos</a></li>
+        <li><a href="~/Gerenciamento/Suporte"><span class="fa fa-wrench"></span>Suportes</a></li>
+        <li><a href="~/Gerenciamento/TesteDeGame"><span class="fa fa-gamepad"></span>Testes de Game</a></li>
+        @if ((int)Session["AcFuncionarioLogado"] == 1)
+        {
+            <li><a href="~/Gerenciamento/PedidoDeCompra"><span class="fa fa-boxes"></span>Pedido De Compra</a></li>
+        }
+        <hr />
+        <li><a href="~/Gerenciamento/Funcionario/Logout"><span class="fa fa-sign-out-alt"></span>Sair</a></li>
+    </ul>
+
+
+    <div class="body-content-ger">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - The Growth Tree Development</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/inputmask")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

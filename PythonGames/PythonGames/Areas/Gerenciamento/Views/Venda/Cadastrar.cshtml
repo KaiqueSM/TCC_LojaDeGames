@@ -1,0 +1,71 @@
+﻿@model PythonGames.Classes.Models.Carrinho
+
+@{
+    ViewBag.Title = "Cadastrar Carrinho";
+}
+
+<h2 class="titulo-form">Cadastrar Carrinho</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>ItensPedido</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div style="display: none;">
+            <div class="">
+                @Html.LabelFor(model => model.cd_cliente, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.cd_cliente, new { htmlAttributes = new { @class = "" } })<br />
+                    @Html.ValidationMessageFor(model => model.cd_cliente, "", new { @class = "text-danger" })<br />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-form-col1">
+            <div class="">
+                @Html.LabelFor(model => model.nm_cli, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.nm_cli, new { htmlAttributes = new { @class = "", @readonly = "@readonly" } })<br />
+                    @Html.ActionLink("Escolher Cliente", "EscolherCliente")<br />
+                    @Html.ValidationMessageFor(model => model.nm_cli, "", new { @class = "text-danger" })<br />
+                </div>
+            </div>
+        </div>
+
+        <div class="div-form-col2">
+            <div class="">
+                @Html.LabelFor(model => model.cd_forma, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.DropDownListFor(model => model.cd_forma, new SelectList(ViewBag.Formas, "cd_forma", "nm_forma", "Selecione"),
+                    htmlAttributes: new { @class = "standardSelect" })
+
+                    <br />
+                    <br />
+                    <br />
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="">
+            <div class="btn-form">
+                <p class="text-danger">
+                    @ViewBag.ErroMsg
+                </p>
+                <input type="submit" value="Cadastrar" class="btn btn-orange" />
+            </div>
+        </div>
+    </div>
+}
+
+<br />
+<div class="link-voltar-form">
+    <i class="fas fa-arrow-circle-left">
+        @Html.ActionLink("Voltar", "Index")
+    </i>
+</div>

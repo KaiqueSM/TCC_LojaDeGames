@@ -1,0 +1,111 @@
+﻿@model PythonGames.Classes.Models.Entrega
+
+@{
+    ViewBag.Title = "Dados da Entrega";
+}
+
+<h2 class="titulo-form">Dados da Entrega</h2>
+
+<div>
+    <hr />
+    <div class="div-form-col1">
+        <b>
+            @Html.DisplayNameFor(model => model.cd_carrinho)
+        </b>
+
+        <p>
+            @Html.DisplayFor(model => model.cd_carrinho)
+        </p>
+
+        <b>
+            @Html.DisplayNameFor(model => model.dt_entrega)
+        </b>
+
+        <p>
+            @Html.DisplayFor(model => model.dt_entrega)
+        </p>
+
+        <b>
+            @Html.DisplayNameFor(model => model.vl_frete)
+        </b>
+
+        <p>
+            @Html.DisplayFor(model => model.vl_frete)
+        </p>
+
+        <b>
+            @Html.DisplayNameFor(model => model.no_cep)
+        </b>
+
+        <p>
+            @Html.DisplayFor(model => model.no_cep)
+        </p>
+
+        <b>
+            @Html.DisplayNameFor(model => model.nm_estado)
+        </b>
+
+        <p>
+            @Html.DisplayFor(model => model.nm_estado)
+        </p>
+    </div>
+    <div class="div-form-col2">
+        <b>
+            @Html.DisplayNameFor(model => model.nm_cidade)
+        </b>
+
+        <p>
+            @Html.DisplayFor(model => model.nm_cidade)
+        </p>
+
+        <b>
+            @Html.DisplayNameFor(model => model.nm_bairro)
+        </b>
+
+        <p>
+            @Html.DisplayFor(model => model.nm_bairro)
+        </p>
+
+        <b>
+            @Html.DisplayNameFor(model => model.nm_rua)
+        </b>
+
+        <p>
+            @Html.DisplayFor(model => model.nm_rua)
+        </p>
+
+        <b>
+            @Html.DisplayNameFor(model => model.no_end)
+        </b>
+
+        <p>
+            @Html.DisplayFor(model => model.no_end)
+        </p>
+        @if (ViewBag.Complemento != "")
+        {
+            <b>
+                @Html.DisplayNameFor(model => model.nm_complemento)
+            </b>
+
+            <p>
+                @Html.DisplayFor(model => model.nm_complemento)
+            </p>
+        }
+
+
+    </div>
+</div>
+<br />
+<hr />
+<div class="link-voltar-form text-center">
+    <i class="fas fa-arrow-circle-left" onclick="history.back()" style="cursor: pointer;">
+        Voltar
+    </i>
+    @Html.ActionLink(" Meus Dados", "Index", null, new { @class = "fas fa-user" })
+    &nbsp;
+    @Html.ActionLink(" Minhas Compras", "Compras", null, new { @class = "fas fa-shopping-bag" })
+    &nbsp;
+    @Html.ActionLink(" Testes De Games", "ListaDeTestes", null, new { @class = "fas fa-gamepad" })
+    &nbsp;
+    @Html.ActionLink(" Suportes", "ListaSuportes", null, new { @class = "fas fa-wrench" })
+</div>

@@ -1,0 +1,86 @@
+﻿@model PythonGames.Classes.Models.Cliente
+
+@{
+    ViewBag.Title = "Alterar Cliente";
+}
+
+<h2 class="titulo-form">Alterar Cliente</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="" style="display: none;">
+                @Html.LabelFor(model => model.cd_cliente, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.cd_cliente, new { htmlAttributes = new { @class = "" } })
+                    @Html.ValidationMessageFor(model => model.cd_cliente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        <div class="div-form-col1">
+
+            <div class="">
+                @Html.LabelFor(model => model.nm_cli, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.nm_cli, new { htmlAttributes = new { @class = "" } })<br />
+                    @Html.ValidationMessageFor(model => model.nm_cli, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="">
+                @Html.LabelFor(model => model.cpf_cli, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.cpf_cli, new { htmlAttributes = new { @id = "cpf_cli" } })<br />
+                    @Html.ValidationMessageFor(model => model.cpf_cli, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="div-form-col2">
+
+            <div class="">
+                @Html.LabelFor(model => model.nm_email, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.nm_email, new { htmlAttributes = new { @class = "" } })<br />
+                    @Html.ValidationMessageFor(model => model.nm_email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="">
+                @Html.LabelFor(model => model.senha_cli, htmlAttributes: new { @class = "" })
+                <div class="">
+                    @Html.EditorFor(model => model.senha_cli, new { htmlAttributes = new { @type = "password" } })<br />
+                    @Html.ValidationMessageFor(model => model.senha_cli, "", new { @class = "text-danger" })
+
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="btn-form">
+                <p class="text-danger">
+                    @ViewBag.ErroMsg
+                </p>
+                <input type="submit" value="Salvar Alterações" class="btn btn-orange" />
+            </div>
+        </div>
+    </div>
+}
+<br />
+<div class="link-voltar-form">
+    <i class="fas fa-arrow-circle-left">
+        @Html.ActionLink("Voltar", "Index")
+    </i>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#cpf_cli").inputmask("mask", { "mask": "999.999.999-99" }, { reverse: true });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}

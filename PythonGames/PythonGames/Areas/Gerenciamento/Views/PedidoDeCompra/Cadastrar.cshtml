@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PythonGames.Classes.Models.Fornecedor>
+
+@{
+    ViewBag.Title = "Escolha o Fornecedor";
+}
+
+<h2>Escolha o Fornecedor</h2>
+<br />
+
+<div class="navbar">
+    <form class="form-inline" method="post">
+        <input class="form-control mr-sm-2" id="no_cnpj" name="no_cnpj" type="search" placeholder="Buscar por CNPJ">
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Buscar</button>
+    </form>
+</div>
+
+<br />
+<table class="table table-borderless text-center">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nm_fornecedor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.no_cnpj)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nm_fornecedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.no_cnpj)
+            </td>
+            <td>
+                @Html.ActionLink("Escolher", "CadPedido", new { cd = item.cd_fornecedor })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#no_cnpj").inputmask("mask", { "mask": "99.999.999/9999-99" }, { reverse: true });
+        });
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}
